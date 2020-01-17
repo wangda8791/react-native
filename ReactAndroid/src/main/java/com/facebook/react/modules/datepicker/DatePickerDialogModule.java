@@ -141,7 +141,13 @@ public class DatePickerDialogModule extends NativeDatePickerAndroidSpec {
       args.putLong(ARG_MAXDATE, (long) options.getDouble(ARG_MAXDATE));
     }
     if (options.hasKey(ARG_DISABLEDDATES) && !options.isNull(ARG_DISABLEDDATES)) {
-      args.putLongArray(ARG_DISABLEDDATES, options.getArray(ARG_DISABLEDDATES).toArrayList().toArray());
+      Object[] objArray = options.getArray(ARG_DISABLEDDATES).toArrayList().toArray();
+      int length = objArray.length;
+      long longArray[] = new long[length];
+      for(int i=0; i<length; i++){
+        longArray[i] = (long) objArray[i];
+      }
+      args.putLongArray(ARG_DISABLEDDATES, longArray);
     }
     if (options.hasKey(ARG_MODE) && !options.isNull(ARG_MODE)) {
       args.putString(ARG_MODE, options.getString(ARG_MODE));
