@@ -13,6 +13,7 @@ export type Options = $ReadOnly<{|
   minDate?: ?(Date | number),
   maxDate?: ?(Date | number),
   mode?: ?('calendar' | 'spinner' | 'default'),
+  disabledDates?: ?Array<(Date | number)>,
 |}>;
 
 export type DatePickerOpenAction =

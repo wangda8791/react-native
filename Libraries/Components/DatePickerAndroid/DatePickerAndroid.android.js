@@ -25,6 +25,19 @@ function _toMillis(options: Options, key: string) {
 }
 
 /**
+ * Convert a Date array to a timestamp array.
+ */
+function _toArrayMillis(options: Options, key: string) {
+  const arrayVal = options[key];
+  // Is it a Array object?
+  if (typeof arrayVal === 'object' && typeof arrayVal.shift === 'function') {
+    options[key] = arrayVal
+                      .filter(dateVal => (typeof dateVal === 'object' && typeof dateVal.getMonth === 'function')) // Filter only dates
+                      .map(dateVal => dateVal.getTime());
+  }
+}
+
+/**
  * Opens the standard Android date picker dialog.
  *
  * ### Example
@@ -53,6 +66,7 @@ class DatePickerAndroid {
    *   - `date` (`Date` object or timestamp in milliseconds) - date to show by default
    *   - `minDate` (`Date` or timestamp in milliseconds) - minimum date that can be selected
    *   - `maxDate` (`Date` object or timestamp in milliseconds) - maximum date that can be selected
+   *   - `disabledDates` (Array of `Date` objects or timestamp in milliseconds) - disabled dates that cannot be selected
    *   - `mode` (`enum('calendar', 'spinner', 'default')`) - To set the date-picker mode to calendar/spinner/default
    *     - 'calendar': Show a date picker in calendar mode.
    *     - 'spinner': Show a date picker in spinner mode.
@@ -72,6 +86,7 @@ class DatePickerAndroid {
       _toMillis(optionsMs, 'date');
       _toMillis(optionsMs, 'minDate');
       _toMillis(optionsMs, 'maxDate');
+      _toArrayMillis(optionsMs, 'disabledDates');
     }
     return NativeDatePickerAndroid.open(options);
   }

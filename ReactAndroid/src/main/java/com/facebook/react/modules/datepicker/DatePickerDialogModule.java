@@ -37,6 +37,7 @@ public class DatePickerDialogModule extends NativeDatePickerAndroidSpec {
   /* package */ static final String ARG_DATE = "date";
   /* package */ static final String ARG_MINDATE = "minDate";
   /* package */ static final String ARG_MAXDATE = "maxDate";
+  /* package */ static final String ARG_DISABLEDDATES = "disabledDates";
   /* package */ static final String ARG_MODE = "mode";
 
   /* package */ static final String ACTION_DATE_SET = "dateSetAction";
@@ -138,6 +139,9 @@ public class DatePickerDialogModule extends NativeDatePickerAndroidSpec {
     }
     if (options.hasKey(ARG_MAXDATE) && !options.isNull(ARG_MAXDATE)) {
       args.putLong(ARG_MAXDATE, (long) options.getDouble(ARG_MAXDATE));
+    }
+    if (options.hasKey(ARG_DISABLEDDATES) && !options.isNull(ARG_DISABLEDDATES)) {
+      args.putLongArray(ARG_DISABLEDDATES, options.getArray(ARG_DISABLEDDATES).toArrayList().toArray());
     }
     if (options.hasKey(ARG_MODE) && !options.isNull(ARG_MODE)) {
       args.putString(ARG_MODE, options.getString(ARG_MODE));

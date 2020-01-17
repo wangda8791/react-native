@@ -132,6 +132,19 @@ public class DatePickerDialogFragment extends DialogFragment {
       datePicker.setMaxDate(c.getTimeInMillis());
     }
 
+    //Disable specific days
+    long[] disabledDates = args.getLongArray(DatePickerDialogModule.ARG_DISABLEDDATES);
+    for (long timestamp : disabledDates) {
+      c.setTimeInMillis(timestamp);
+      c.set(Calendar.HOUR_OF_DAY, 0);
+      c.set(Calendar.MINUTE, 0);
+      c.set(Calendar.SECOND, 0);
+      c.set(Calendar.MILLISECOND, 0);
+      Calendar[] disabledDays = new Calendar[1];
+      disabledDays[0] = c;
+      datePicker.setDisabledDays(disabledDays);
+    }
+
     return dialog;
   }
 
